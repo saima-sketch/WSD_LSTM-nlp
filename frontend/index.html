@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Sense Disambiguation — LSTM</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Word Sense Disambiguation</h1>
+      <p class="subtitle">LSTM-Based Bank Sense Classification</p>
+    </header>
+
+    <!-- Input Card -->
+    <div class="card input-card">
+      <label for="sentenceInput" class="input-label">Enter a sentence containing the word "bank"</label>
+      <textarea
+        id="sentenceInput"
+        rows="3"
+        placeholder='Enter a sentence containing the word "bank"...'
+      ></textarea>
+
+      <!-- Example quick-fill buttons -->
+      <div class="examples">
+        <span class="examples-label">Try an example:</span>
+        <button class="example-btn" data-text="I went to the bank to withdraw cash">💳 Financial</button>
+        <button class="example-btn" data-text="The children played near the river bank">🌊 River</button>
+      </div>
+
+      <div class="button-group">
+        <button id="predictBtn" class="btn primary">Predict Meaning</button>
+        <button id="clearBtn" class="btn secondary">Clear</button>
+      </div>
+
+      <div id="loadingIndicator" class="loading hidden">⏳ Predicting... Please wait</div>
+      <div id="errorMessage" class="error-message hidden"></div>
+    </div>
+
+    <!-- Result Card -->
+    <div id="resultSection" class="card result-card hidden">
+      <h2 class="result-title">Prediction</h2>
+
+      <div class="result-row">
+        <span class="result-label">Input Sentence</span>
+        <span id="resultSentence" class="result-value"></span>
+      </div>
+
+      <div class="result-row highlight">
+        <span class="result-label">Predicted Meaning</span>
+        <span id="resultMeaning" class="result-value meaning"></span>
+      </div>
+
+      <div class="result-row">
+        <span class="result-label">Class</span>
+        <span id="resultClass" class="result-value"></span>
+      </div>
+
+      <!-- Probabilities -->
+      <div class="probability-section">
+        <h3>Probabilities</h3>
+
+        <div class="prob-row">
+          <div class="prob-header">
+            <span class="prob-name financial">💳 Financial Bank</span>
+            <span id="probFinancialText" class="prob-percent">0%</span>
+          </div>
+          <div class="prob-bar-bg">
+            <div id="probFinancialBar" class="prob-bar financial-bar" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="prob-row">
+          <div class="prob-header">
+            <span class="prob-name river">🌊 River Bank</span>
+            <span id="probRiverText" class="prob-percent">0%</span>
+          </div>
+          <div class="prob-bar-bg">
+            <div id="probRiverBar" class="prob-bar river-bar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
